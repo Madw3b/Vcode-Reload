@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev Live Reload – popup</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- header -->
+  <div class="header">
+    <div class="brand">
+      <img src="../img/icon32.png" alt="" width="28" height="28">
+      <div>
+        <h1>Dev Live Reload</h1>
+        <p>v3.0.0</p>
+      </div>
+    </div>
+    <label class="switch">
+      <input type="checkbox" id="enable">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <!-- status bar -->
+  <div class="statusbar" id="statusBar">
+    <span class="dot" id="dot"></span>
+    <span class="status-text" id="statusText">Offline</span>
+    <span class="status-host" id="statusHost">127.0.0.1:5500</span>
+  </div>
+
+  <!-- tabs -->
+  <div class="tabs">
+    <button class="tab active" data-tab="activity">Activity</button>
+    <button class="tab" data-tab="ignore">Ignore List <span class="count" id="ignoreCount">0</span></button>
+    <button class="tab" data-tab="connect">Connect Settings</button>
+  </div>
+
+  <!-- ===== TAB 1: ACTIVITY ===== -->
+  <div class="panel" id="panel-activity">
+    <div class="toolbar">
+      <div class="filters">
+        <button class="pill active" data-filter="all">All <span id="cntAll">0</span></button>
+        <button class="pill" data-filter="reload">Reloaded <span id="cntReload">0</span></button>
+        <button class="pill" data-filter="ignored">Ignored <span id="cntIgnored">0</span></button>
+      </div>
+      <button class="link" id="clearLog">Clear log</button>
+    </div>
+    <div class="log" id="logList">
+      <div class="empty">No activity yet. Save a file in your web root.</div>
+    </div>
+  </div>
+
+  <!-- ===== TAB 2: IGNORE LIST ===== -->
+  <div class="panel hidden" id="panel-ignore">
+    <div class="add-row">
+      <input type="text" id="ignoreInput" placeholder="e.g. node_modules, *.log, storage/…" style="flex:1">
+      <button class="btn primary" id="addIgnore">Add</button>
+    </div>
+    <div class="hint">Files/folders matching these patterns won't trigger a reload. The watcher also receives this list.</div>
+    <div class="chips" id="chips"></div>
+    <div class="subhead">Quick add</div>
+    <div class="chips" id="presets"></div>
+  </div>
+
+  <!-- ===== TAB 3: CONNECT SETTINGS ===== -->
+  <div class="panel hidden connect-panel" id="panel-connect">
+    <div class="card">
+      <div class="field">
+        <label>Site URLs <small>pages that get reloaded</small></label>
+        <input type="text" id="siteUrls" placeholder="http://127.0.0.1, http://localhost:3000">
+        <div class="hint" style="margin-top:4px">Comma or space separated. A bare host matches any port/path on it.</div>
+      </div>
+      <div class="field">
+        <label>Watcher server URL <small>VS Code extension</small></label>
+        <input type="text" id="serverUrl" placeholder="http://127.0.0.1:5500">
+      </div>
+      <div class="row-end">
+        <span class="save-msg" id="saveMsg">Saved ✓</span>
+        <button class="btn primary" id="saveBtn" disabled>Save</button>
+      </div>
+    </div>
+    <div class="card" style="margin-top:8px; display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:var(--muted); font-size:12px;">Reset to defaults</span>
+      <button class="btn ghost small" id="resetBtn">Reset</button>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="footer">
+    <span>Dev Live Reload</span>
+    <span id="footerHost">127.0.0.1:5500</span>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
