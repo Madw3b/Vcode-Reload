@@ -191,18 +191,18 @@
 
   /* ---------------- tabs ---------------- */
 
-  function setupTabs() {
-    const tabs = document.querySelectorAll('.tab');
-    tabs.forEach((b) =>
-      b.addEventListener('click', () => {
-        tabs.forEach((t) => t.classList.toggle('active', t === b));
-        const tab = b.dataset.tab;
-        $('panel-activity').classList.toggle('hidden', tab !== 'activity');
-        $('panel-ignore').classList.toggle('hidden', tab !== 'ignore');
-        $('panel-connect').classList.toggle('hidden', tab !== 'connect');
-      })
-    );
-  }
+function setupTabs() {
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach((b) =>
+    b.addEventListener('click', () => {
+      tabs.forEach((t) => t.classList.toggle('active', t === b));
+      const tab = b.dataset.tab;
+      $('panel-activity').classList.toggle('hidden', tab !== 'activity');
+      $('panel-ignore').classList.toggle('hidden', tab !== 'ignore');
+      $('panel-connect').classList.toggle('hidden', tab !== 'connect');
+    })
+  );
+}
 
   /* ---------------- init ---------------- */
 
@@ -266,6 +266,15 @@
     $('ignoreInput').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') addIgnore($('ignoreInput').value);
     });
+
+    // Buy Me a Coffee link — open via chrome.tabs for reliability in popups
+    const bmcLink = $('bmcLink');
+    if (bmcLink) {
+      bmcLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        chrome.tabs.create({ url: 'https://buymeacoffee.com/madgizmo' });
+      });
+    }
 
     setupTabs();
 
